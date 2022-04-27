@@ -1,0 +1,2 @@
+['remote "sremote"']
+    url = s3://ameludacitys3/
