@@ -1,2 +1,6 @@
+[core]
+    remote = storage
 ['remote "sremote"']
+    url = s3://ameludacitys3/
+['remote "storage"']
     url = s3://ameludacitys3/
