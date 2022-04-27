@@ -16,7 +16,7 @@ jobs:
         with:
           python-version: 3.8
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r req.txt
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
