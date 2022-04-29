@@ -1,3 +1,8 @@
+'''
+Author: Amel Sellami 
+Date: 28-04-2022
+Goal: process data file
+'''
 import numpy as np
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 
