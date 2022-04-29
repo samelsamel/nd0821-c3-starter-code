@@ -1,11 +1,12 @@
 '''
-Author: Amel Sellami 
+Author: Amel Sellami
 Date: 28-04-2022
 Goal: contains functions like train model, comute metrics and predictions.
 '''
 from .data import process_data
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 from sklearn.ensemble import RandomForestClassifier
+
 
 # Optional: implement hyperparameter tuning.
 def train_model(X_train, y_train):
@@ -24,15 +25,18 @@ def train_model(X_train, y_train):
         Trained machine learning model.
     """
 
-    clf = RandomForestClassifier(random_state=1994, max_depth=19, n_estimators=64)
+    clf = RandomForestClassifier(
+                                random_state=1994,
+                                max_depth=19,
+                                n_estimators=64)
     clf.fit(X_train, y_train)
-
     return clf
 
 
 def compute_model_metrics(y, preds):
     """
-    Validates the trained machine learning model using precision, recall, and F1.
+    Validates the trained machine learning
+    model using precision, recall, and F1.
 
     Inputs
     ------
@@ -69,17 +73,17 @@ def inference(model, X):
     return model.predict(X)
 
 
-def compute_slice_metrics(df,category,model,encoder,binarizer):
+def compute_slice_metrics(df, category, model, encoder, binarizer):
     """
     Computes model metrics based on data slices
-    
+
     Inputs
     ------
     df : pd.DataFrame
          Dataframe containing the cleaned data
     category : str
          Dataframe column to slice
-    rf_model: 
+    rf_model:
          Random forest model used to perform prediction
     encoder: OneHotEncoder
          Trained OneHotEncoder

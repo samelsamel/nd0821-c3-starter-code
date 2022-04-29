@@ -1,21 +1,22 @@
 '''
-Author: Amel Sellami 
+Author: Amel Sellami
 Date: 28-04-2022
 Goal: Testing the API functions
 '''
-from fastapi.testclient import TestClient
-from pathlib import Path
-import os
 import sys
-sys.path.append('/home/amel/work/udacity/nd0821-c3-starter-code/starter/starter/ml')
+from fastapi.testclient import TestClient
 from starter.main import app
 
+sys.path.append('path/to/starter/ml')
+
 client = TestClient(app)
+
 
 def test_welcome_message():
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"Greetings": "Welcome aon board of this Journey"}
+    assert response.json() == {"Greetings": "Welcome an board!"}
+
 
 def test_predict_greater50k():
     r = client.post("/predict", json={
@@ -37,6 +38,7 @@ def test_predict_greater50k():
 
     assert r.status_code == 200
     assert r.json() == {"prediction": ">50K"}
+
 
 def test_predict_less50k():
     r = client.post("/predict", json={
