@@ -1,9 +1,10 @@
 '''
-Author: Amel Sellami 
+Author: Amel Sellami
 Date: 28-04-2022
 Goal: Testing for starter functions
 '''
 import numpy as np
+
 
 def test_columns_names(data):
     expected_columns = [
@@ -40,7 +41,8 @@ def test_age_range(data, min_age=0, max_age=100):
 
 def test_relationship_category(data):
     known_relationship_values = [
-        'Wife', 'Own-child', 'Husband', 'Not-in-family', 'Other-relative', 'Unmarried']
+        'Wife', 'Own-child', 'Husband', 'Not-in-family',
+        'Other-relative', 'Unmarried']
 
     relationships = set(data['relationship'].unique())
     print(f'known relations: {relationships}')
