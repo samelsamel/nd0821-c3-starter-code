@@ -11,7 +11,7 @@ import joblib
 
 from fastapi import FastAPI
 from pydantic import BaseModel
-from starter.data import process_data
+from starter.starter.ml.data import process_data
 
 # FastAPI instance
 app = FastAPI()
