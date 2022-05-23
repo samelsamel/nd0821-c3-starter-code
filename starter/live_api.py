@@ -17,7 +17,7 @@ test1= {
   "hours_per_week": 40,
   "native-country": "United-States"
 }
-response1 = requests.post('https://censussalary.herokuapp.com/predict/', data=json.dumps(test1))
+response1 = requests.post('https://udacityappamel.herokuapp.com/predict/', data=json.dumps(test1))
 
 
 test2= {
@@ -36,7 +36,7 @@ test2= {
   "hours_per_week": 40,
   "native_country": "United States"
 }
-response2 = requests.post('https://census-app-project.herokuapp.com/predict/', data=json.dumps(test2))
+response2 = requests.post('https://udacityappamel.herokuapp.com/predict/', data=json.dumps(test2))
 
 
 print(response1.status_code)
