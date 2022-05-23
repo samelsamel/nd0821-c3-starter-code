@@ -7,7 +7,7 @@ import sys
 from fastapi.testclient import TestClient
 from starter.main import app
 
-sys.path.append('path/tostarter/ml')
+sys.path.append('/home/amel/work/udacity/nd0821-c3-starter-code/starter/starter/ml')
 
 client = TestClient(app)
 
@@ -18,35 +18,44 @@ def test_welcome_message():
     assert response.json() == "Hello World! Happy API checking"
 
 
-def test_predict_greater50k():
-    request = client.post("/", json={'age': 33,
-                                     'workclass': 'Private',
-                                     'fnlgt': 149184,
-                                     'education': 'HS-grad',
-                                     'marital_status': 'Never-married',
-                                     'occupation': 'Prof-specialty',
-                                     'relationship': 'Not-in-family',
-                                     'race': 'White',
-                                     'sex': 'Male',
-                                     'hoursPerWeek': 60,
-                                     'nativeCountry': 'United-States'
-                                     })
-    assert request.status_code == 405
-    assert request.json() == {"prediction": ">50K"}
+# def test_predict_gr50k():
+#     r = client.post("/predict/", json={
+#         "age": 40,
+#         "workclass": "Private",
+#         "fnlgt": 193524,
+#         "education": "Doctorate",
+#         "education-num": 16,
+#         "marital-status": "Married-civ-spouse",
+#         "occupation": "Prof-specialty",
+#         "relationship": "Husband",
+#         "race": "White",
+#         "sex": "Male",
+#         "capital-gain": 15,
+#         "capital-loss": 0,
+#         "hours-per-week": 60,
+#         "native-country": "United-States"
+#     })
 
+#     assert r.status_code == 307
+#     assert r.json() == {"prediction": ">50K"}
 
-def test_predict_less50k():
-    request = client.post("/", json={'age': 19,
-                                     'workclass': 'Private',
-                                     'fnlgt': 149184,
-                                     'education': 'HS-grad',
-                                     'marital_status': 'Never-married',
-                                     'occupation': 'Prof-specialty',
-                                     'relationship': 'Not-in-family',
-                                     'race': 'White',
-                                     'sex': 'Male',
-                                     'hoursPerWeek': 60,
-                                     'nativeCountry': 'United-States'
-                                     })
-    assert request.status_code == 405
-    assert request.json() == {"prediction": "<=50K"}
+# def test_predict_ls50k():
+#     r = client.post("/predict/", json={
+#         "age": 47,
+#         "workclass": "Private",
+#         "fnlwgt": 51835,
+#         "education": "Prof-school",
+#         "education_num": 15,
+#         "marital_status": "Married-civ-spouse",
+#         "occupation": "Prof-specialty",
+#         "relationship": "Wife",
+#         "race": "White",
+#         "sex": "Female",
+#         "capital_gain": 0,
+#         "capital_loss": 1902,
+#         "hours_per_week": 60,
+#         "native_country": "Honduras"
+#     })
+
+#     assert r.status_code == 307
+#     assert r.json() == {"prediction": "<=50K"}
