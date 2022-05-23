@@ -55,7 +55,7 @@ encoder = joblib.load(open("model/encoder.joblib", 'r+b'))
 labelb = joblib.load(open("model/lb.joblib", 'r+b'))
 
 
-@app.post("/predict", response_model=Output, status_code=200)
+@app.post("/predict/", response_model=Output, status_code=200)
 def predict(data: Input):
 
     # Categorical features for transform model
