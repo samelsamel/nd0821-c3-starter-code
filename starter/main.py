@@ -10,7 +10,7 @@ import uvicorn
 import joblib
 
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from starter.starter.ml.data import process_data
 
 # FastAPI instance
@@ -25,20 +25,22 @@ if "DYNO" in os.environ and os.path.isdir(".dvc"):
 
 
 class Input(BaseModel):
-    age: int = 23
-    workclass: str = 'Self-emp-inc'
-    fnlgt: int = 76516
-    education: str = 'Bachelors'
-    education_num: int = 13
-    marital_status: str = 'Married-civ-spouse'
-    occupation: str = 'Exec-managerial'
-    relationship: str = 'Husband'
-    race: str = 'White'
-    sex: str = 'Male'
-    capital_gain: int = 0
-    capital_loss: int = 0
-    hours_per_week: int = 40
-    native_country: str = 'United States'
+    age: int = Field(..., example=23)
+    workclass: str = Field(..., example="Self-emp-inc'")
+    fnlgt: int = Field(..., example=76516)
+    education: str = Field(..., example="Bachelors")
+    education_num: int = Field(..., example=13, alias="education-num")
+    marital_status: str = Field(..., example="Married-civ-spouse",
+                                alias="marital-status")
+    occupation: str = Field(..., example="Exec-managerial")
+    relationship: str = Field(..., example="Husband")
+    race: str = Field(..., example="White")
+    sex: str = Field(..., example="Male")
+    capital_gain: int = Field(..., example=0, alias="capital-gain")
+    capital_loss: int = Field(..., example=0, alias="capital-loss")
+    hours_per_week: int = Field(..., example=40, alias="hours-per-week")
+    native_country: str = Field(..., example="United-States",
+                                alias="native-country")
 
 
 class Output(BaseModel):
@@ -53,6 +55,7 @@ def welcome():
 model = joblib.load(open("model/model.joblib", "r+b"))
 encoder = joblib.load(open("model/encoder.joblib", 'r+b'))
 labelb = joblib.load(open("model/lb.joblib", 'r+b'))
+
 
 
 @app.post("/predict/", response_model=Output, status_code=200)
@@ -72,6 +75,7 @@ def predict(data: Input):
 
     # load predict_data
     request_dict = data.dict(by_alias=True)
+    print('****************',len(request_dict))
     request_data = pd.DataFrame(request_dict, index=[0])
     X, _, _, _ = process_data(
                 request_data,
