@@ -3,15 +3,17 @@ Author: Amel Sellami
 Date: 28-04-2022
 Goal: Testing the API functions
 '''
+import os
+import inspect
 import sys
 from fastapi.testclient import TestClient
 from starter.main import app
 
-sys.path.append('/home/amel/work/udacity/ \
-                nd0821-c3-starter-code/starter/starter/ml')
-
+# Load app from parent folder:
+currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+parentdir = os.path.dirname(currentdir)
+sys.path.insert(0, parentdir) 
 client = TestClient(app)
-print(client)
 
 
 def test_welcome_message():
