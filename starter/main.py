@@ -54,8 +54,8 @@ class Input(BaseModel):
                                 alias="native-country")
 
 
-class Output(BaseModel):
-    prediction: str
+# class Output(BaseModel):
+#     prediction: str
 
 
 @app.get("/")
@@ -68,8 +68,7 @@ encoder = joblib.load(open("model/encoder.joblib", 'r+b'))
 labelb = joblib.load(open("model/lb.joblib", 'r+b'))
 
 
-
-@app.post("/predict/", response_model=Output, status_code=200)
+@app.post("/predict/", status_code=200)
 def predict(data: Input):
 
     # Categorical features for transform model
@@ -84,18 +83,17 @@ def predict(data: Input):
         "native-country"
     ]
 
-
     # load predict_data
     request_dict = data.dict(by_alias=True)
     request_data = pd.DataFrame(request_dict, index=[0])
     data = pd.read_csv('data/census_clean.csv')
     # Proces the test data with the process_data function.
-    X, _ , _, _ = process_data(
+    X, _, _, _ = process_data(
         request_data,
-                categorical_features=cat_features,
-                training=False,
-                encoder=encoder,
-                lb=labelb)
+        categorical_features=cat_features,
+        training=False,
+        encoder=encoder,
+        lb=labelb)
     prediction = model.predict(X)
 
     if prediction[0] == 1:
