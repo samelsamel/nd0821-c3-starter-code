@@ -31,4 +31,4 @@ jobs:
         run: flake8
       - name: Test with pytest
         run: |
-          pytest starter/test/test_main.py -vv
+          pytest test/test_main.py -vv
