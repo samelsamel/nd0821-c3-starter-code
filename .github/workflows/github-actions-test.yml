@@ -29,6 +29,6 @@ jobs:
         run: dvc pull data -R
       - name: Run Flake8
         run: flake8
-      - name: Run pytest
+      - name: Test with pytest
         run: |
-        pytest starter/test/ -vv
+          pytest starter/test/ -vv
