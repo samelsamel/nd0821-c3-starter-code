@@ -47,9 +47,6 @@ def trainer(train, model_path):
     model = train_model(X_train, y_train)
 
     dirname = os.path.dirname(model_path)
-    # save the full pack
-    #joblib.dump((model, encoder, lb), model_path)
-
     # save model
     joblib.dump(model, f"{dirname}/model.joblib")
     # save the encoder

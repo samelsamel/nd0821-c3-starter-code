@@ -1,7 +1,7 @@
 import requests
-import json 
+import json
 
-test1= {
+test1 = {
   "age": 40,
   "workclass": "private",
   "fnlgt": 154374,
@@ -17,7 +17,8 @@ test1= {
   "hours_per_week": 40,
   "native-country": "United-States"
 }
-response1 = requests.post('https://udacityappamel.herokuapp.com/predict/', data=json.dumps(test1))
+response1 = requests.post('https://udacityappamel.herokuapp.com/predict/',
+                          data=json.dumps(test1))
 
 print(response1.status_code)
 print(response1.json())
