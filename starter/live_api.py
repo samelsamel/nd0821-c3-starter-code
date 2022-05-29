@@ -2,45 +2,22 @@ import requests
 import json 
 
 test1= {
-  "age": 39,
-  "workclass": "State-gov",
-  "fnlgt": 77516,
-  "education": "Bachelors",
-  "education_num": 13,
-  "marital-status": "Never-married",
-  "occupation": "Adm-clerical",
-  "relationship": "Not-in-family",
-  "race": "White",
-  "sex": "Male",
-  "capital_gain": 2174,
-  "capital_loss": 0,
-  "hours_per_week": 40,
-  "native-country": "United-States"
-}
-response1 = requests.post('https://udacityappamel.herokuapp.com/predict/', data=json.dumps(test1))
-
-
-test2= {
-  "age": 23,
-  "workclass": "Self-emp-inc",
-  "fnlgt": 76516,
-  "education": "Bachelors",
-  "education_num": 13,
-  "marital_status": "Married-civ-spouse",
-  "occupation": "Exec-managerial",
+  "age": 40,
+  "workclass": "private",
+  "fnlgt": 154374,
+  "education": "HS-grad	",
+  "education_num": 9,
+  "marital-status": "Married-civ-spouse",
+  "occupation": "Machine-op-inspct",
   "relationship": "Husband",
   "race": "White",
   "sex": "Male",
   "capital_gain": 0,
   "capital_loss": 0,
   "hours_per_week": 40,
-  "native_country": "United States"
+  "native-country": "United-States"
 }
-response2 = requests.post('https://udacityappamel.herokuapp.com/predict/', data=json.dumps(test2))
-
+response1 = requests.post('https://udacityappamel.herokuapp.com/predict/', data=json.dumps(test1))
 
 print(response1.status_code)
 print(response1.json())
-print("-----------")
-print(response2.status_code)
-print(response2.json())

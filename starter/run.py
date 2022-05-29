@@ -23,10 +23,12 @@ label_column = 'salary'
 
 if __name__ == '__main__':
     data_path = 'data/census_clean.csv'
-    model_path = "path/to/file/model/random_forest_model_encoder_lb.pkl"
+    model_path = "/home/amel/work/udacity/nd0821-c3-starter-code/model/"
 
     # Get the splitted data
     train_data, test_data = load_data(data_path)
+    train_data.drop(['Unnamed: 0'], axis=1, inplace=True)
+    test_data.drop(['Unnamed: 0'], axis=1, inplace=True)
     # Training the model on the train data
     trainer(train_data, model_path)
     # evaluating the model on the test data
@@ -38,6 +40,7 @@ if __name__ == '__main__':
 
     data = pd.read_csv('data/census_clean.csv')
     # Proces the test data with the process_data function.
+    data.drop(['Unnamed: 0'], axis=1, inplace=True)
     X_test, y_test, encoder, lb = process_data(
         data,
         categorical_features=CAT_FEATURES,

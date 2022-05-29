@@ -16,17 +16,28 @@ from starter.starter.ml.data import process_data
 # FastAPI instance
 app = FastAPI()
 
-# Heroku access to DVC data
+CAT_FEATURES = [
+    "workclass",
+    "education",
+    "marital-status",
+    "occupation",
+    "relationship",
+    "race",
+    "sex",
+    "native-country",
+]
+# DVC set-up for Heroku
 if "DYNO" in os.environ and os.path.isdir(".dvc"):
     os.system("dvc config core.no_scm true")
-    if os.system("dvc pull") != 0:
+    os.system("dvc config core.hardlink_lock true")
+    if os.system("dvc pull  -r storage") != 0:
         exit("dvc pull failed")
     os.system("rm -r .dvc .apt/usr/lib/dvc")
 
 
 class Input(BaseModel):
     age: int = Field(..., example=23)
-    workclass: str = Field(..., example="Self-emp-inc'")
+    workclass: str = Field(..., example="Self-emp-inc")
     fnlgt: int = Field(..., example=76516)
     education: str = Field(..., example="Bachelors")
     education_num: int = Field(..., example=13, alias="education-num")
@@ -63,34 +74,35 @@ def predict(data: Input):
 
     # Categorical features for transform model
     cat_features = [
-                    "workclass",
-                    "education",
-                    "marital-status",
-                    "occupation",
-                    "relationship",
-                    "race",
-                    "sex",
-                    "native-country"
-                ]
+        "workclass",
+        "education",
+        "marital-status",
+        "occupation",
+        "relationship",
+        "race",
+        "sex",
+        "native-country"
+    ]
+
 
     # load predict_data
     request_dict = data.dict(by_alias=True)
-    print('****************',len(request_dict))
     request_data = pd.DataFrame(request_dict, index=[0])
-    X, _, _, _ = process_data(
-                request_data,
+    data = pd.read_csv('data/census_clean.csv')
+    # Proces the test data with the process_data function.
+    X, _ , _, _ = process_data(
+        request_data,
                 categorical_features=cat_features,
                 training=False,
                 encoder=encoder,
                 lb=labelb)
-
     prediction = model.predict(X)
 
     if prediction[0] == 1:
         prediction = "Salary > 50k"
     else:
         prediction = "Salary <= 50k"
-    return {"prediction": prediction}
+    return {"income class": prediction}
 
 
 if __name__ == "__main__":
